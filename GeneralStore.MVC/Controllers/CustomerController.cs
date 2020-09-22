@@ -9,52 +9,52 @@ using System.Web.Mvc;
 
 namespace GeneralStore.MVC.Controllers
 {
-    public class ProductController : Controller
+    public class CustomerController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 
-        // GET: Product
+        // GET: Customer
         public ActionResult Index()
         {
-            List<Product> productList = _db.Products.ToList();
-            List<Product> orderedList = productList.OrderBy(prod => prod.Name).ToList();
+            List<Customer> customerList = _db.Customers.ToList();
+            List<Customer> orderedList = customerList.OrderBy(cust => cust.FullName).ToList();
             return View(orderedList);
         }
 
-        // GET: Product
+        // GET: Customer
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product
+        // POST: Customer
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _db.Products.Add(product);
+                _db.Customers.Add(customer);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            return View(customer);
         }
 
         // GET : Delete
-        // Product/Delete/{id}
+        // Customer/Delete/{id}
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            Product product = _db.Products.Find(id);
-            if (product == null)
+            Customer customer = _db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(customer);
         }
 
         // POST : Delete
@@ -63,58 +63,58 @@ namespace GeneralStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            Product product = _db.Products.Find(id);
-            _db.Products.Remove(product);
+            Customer customer = _db.Customers.Find(id);
+            _db.Customers.Remove(customer);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         // GET : Edit
-        // Product/Edit/{id}
+        // Customer/Edit/{id}
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _db.Products.Find(id);
-            if (product == null)
+            Customer customer = _db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(customer);
         }
 
-        // POST : Edit// Product/Edit/{id}
+        // POST : Edit// Customer/Edit/{id}
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(product).State = EntityState.Modified;
+                _db.Entry(customer).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(customer);
         }
 
         // GET : Details
-        // Product/Details/{id}
+        // Customer/Details/{id}
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _db.Products.Find(id);
+            Customer customer = _db.Customers.Find(id);
 
-            if (product == null)
+            if (customer == null)
             {
                 return HttpNotFound();
             }
 
-            return View(product);
+            return View(customer);
         }
     }
 }
