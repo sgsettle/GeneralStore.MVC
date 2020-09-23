@@ -58,7 +58,7 @@ namespace GeneralStore.MVC.Controllers
         }
 
         // POST : Delete
-        // Product/Delete/{id}
+        // Customer/Delete/{id}
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
